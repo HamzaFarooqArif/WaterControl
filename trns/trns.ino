@@ -1,41 +1,3 @@
-/*
-
-
-
-
-
-void setup() {
-  Serial.begin(9600); // Open serial monitor at 115200 baud to see ping results.
-  
-
-}
-
-
-
-void loop(){
-  controller="A";
-
-    Serial.println("INCOMING");
-}*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #include <VirtualWire.h>
 #include <NewPing.h>
 #include <MedianFilter.h>
@@ -105,22 +67,15 @@ void loop() {
   measure();
   measure();
   
-  int measuredLvl = MAX_DISTANCE - measure() + 20;
+  int measuredLvl = MAX_DISTANCE - measure() + 20; 
   bool waterState = false;
   bool fullState = false;
 
+  if(measuredLvl > MAX_DISTANCE) measuredLvl = MAX_DISTANCE;
+  
   if(analogRead(A0) > 500) waterState = true;
   if(analogRead(A1) > 500) fullState = true;
   
-  
-  /*int measuredLevel = measure();
-  delay(100);           
-  Serial.print("Ping: ");
-  Serial.print(measuredLevel);
-  Serial.println("cm");
-
-  sendSignal(getLevel(measuredLevel));*/
-
   intToStr(msg, waterState, 0);
   intToStr(msg, measuredLvl, 3);
   intToStr(msg, fullState, 4);
